@@ -1,0 +1,1 @@
+{"version":3,"file":"app/app-wp343ecd7c5342e51202a3.js","mappings":"mBAGAA,QAAQC,IAAI,U","sources":["webpack://_new/./src/app/js/app.js"],"sourcesContent":["import '../scss/app.scss'; // Importing SCSS file\n\n\nconsole.log('testing');\n "],"names":["console","log"],"sourceRoot":""}

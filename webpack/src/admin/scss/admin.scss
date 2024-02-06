@@ -1,0 +1,203 @@
+:root {
+    --main-bg-color: #ffffff; /* White */
+    --text-color: #333333; /* Dark Gray */
+    --accent-color: #4a90e2; /* Honolulu Blue */
+    --inactive-color: #ff4d4d; /* Red */
+    --active-color: #00cc66; /* Green */
+    --secondary-text-color: #555555; /* Light Gray */
+    --box-shadow-color: rgba(0, 0, 0, 0.05); /* Light box shadow */
+    --max-width: 600px;
+  }
+
+  section.subscribers-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+  .subscribers-card{
+
+    background-color: var(--main-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 0 10px var(--box-shadow-color);
+ 
+    padding: 0px 1rem;
+    max-width: var(--max-width);
+    height: fit-content;
+  }
+  
+  .subscribers-card-info  {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height:72px;
+ 
+   
+  }
+ 
+  
+  .subscribers-name,
+  .subscriber-active,
+  .subscriber-email,
+  .subscriber-options {
+    flex: 0;
+  }
+  
+  .subscribers-name h3 {
+    margin: 0;
+    color: var(--text-color);
+  }
+  
+  .subscriber-active {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .active-circle {
+    width: 10px;
+    height: 10px;
+    background-color: var( --active-color);
+    border-radius: 50%;
+    margin-right: 8px;
+
+  }
+
+  .inactive-circle{
+    width: 10px;
+    height: 10px;
+    background-color: var(--inactive-color);
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .subscriber-email p {
+    margin: 0;
+    color: var(--secondary-text-color);
+  }
+  
+  .subscriber-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .options-dots {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+  
+  .dot {
+    width:8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+  
+
+  .subscriber-option-forms {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+
+    border-top: 1px solid var(--accent-color);
+  }
+  
+  .subscriber-option-forms form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .subscriber-option-forms form input,
+  .subscriber-option-forms form select,
+  .subscriber-option-forms form label,
+  .subscriber-option-forms form button {
+    margin-right: 10px;
+  }
+  
+  .subscriber-option-forms form input,
+  .subscriber-option-forms form select,
+  .subscriber-option-forms form button {
+    padding: 8px;
+  }
+  
+  .subscriber-option-forms form input,
+  .subscriber-option-forms form select {
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+   
+  }
+  
+  .subscriber-option-forms form button {
+    background-color: var(--accent-color);
+    color: var(--main-bg-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &.delete-user-button {
+      background-color: var(--inactive-color);
+    }
+  }
+  
+  .subscriber-option-forms, .subscriber-option-forms form {
+    display: flex;
+    flex-direction: column;
+   
+    width: 100%;
+    gap: 16px;
+
+}
+ 
+//  Responsive
+.subscriber-option-forms form select, .subscriber-option-forms form input[type="text"], .subscriber-option-forms form input[type="email"]
+{
+    width: 77% !important;
+}
+
+.delete-user-checkbox-container{
+    display: flex;
+    align-items: center;
+ 
+}
+
+.subscriber-option-forms{
+    display: none;
+}
+
+
+.add-subscriber-form {
+   max-width: var(--max-width);
+    
+}
+
+.add-subscriber-form form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2px;
+    
+}
+ 
+
+.add-subscriber-form form input,
+.add-subscriber-form form select {
+    border: 1px solid var(--accent-color);
+    border-radius: 4px;
+    height: 45px;
+    flex: 1;
+}
+
+.add-subscriber-form form button {
+    background-color: var(--accent-color);
+    color: var(--main-bg-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 45px;
+    white-space: pre;
+    padding: 12px;
+}
