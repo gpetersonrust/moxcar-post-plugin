@@ -1,5 +1,6 @@
 <?php
 $users = get_option('moxcar_subscribers');
+
 $post_url = admin_url('admin.php?page=moxcar-post-plugin');
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
@@ -22,11 +23,23 @@ if (isset($_POST['action'])) {
         $users[$id]['is_active'] = $_POST['is_active'];
         update_option('moxcar_subscribers', $users);
     }
-}
+} 
+
+ 
+ 
+
 
 ?>
 
 <main>
+
+<?php
+
+
+    
+ 
+
+?>
     <h2>Subscribers List</h2>
 
     <section class="add-subscriber-form">

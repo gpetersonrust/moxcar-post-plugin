@@ -86,3 +86,69 @@ function run_moxcar_post_plugin() {
 
 }
 run_moxcar_post_plugin();
+
+
+
+
+
+
+$posts_to_mail_ids = get_posts(
+    array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'fields' => 'ids', // Specify that you only want post IDs
+        'date_query' => array(
+            array(
+                'after' => '2024-02-01',
+                'inclusive' => true
+            )
+        )
+    )
+);
+
+
+  
+
+	$posts_already_sent = get_option('moxcar_posts_already_sent');
+
+//  if empty or not an array, create an empty array
+	if ( ! is_array($posts_already_sent) ) {
+		$posts_already_sent = array();
+		update_option('moxcar_posts_already_sent', $posts_already_sent);
+	}
+
+	$ids_to_mail = array_diff($posts_to_mail_ids, $posts_already_sent);
+
+	$subscribers = get_option('moxcar_subscribers');
+
+	if ( ! is_array($subscribers) ) {
+		$subscribers = array();
+		update_option('moxcar_subscribers', $subscribers);
+	}
+
+	// go through subscribers and ignore the ones that are not active
+	$active_subscribers = array_filter($subscribers, function($subscriber) {
+		return $subscriber['is_active'] == 1;
+	});
+
+	//  posts to mail for each subscriber
+
+	foreach ($active_subscribers as $subscriber) {
+		$to = $subscriber['email'];
+		$subject = 'New Posts from Moxcar';
+		$body = 'New posts from Moxcar: <br>';
+
+		foreach ($ids_to_mail as $id) {
+			$post = get_post($id);
+			 $post_title = $post->post_title;
+			 $post_url =  $post->guid;
+			 
+			 $body .= "<a href='$post_url'>$post_title</a><br>";
+		}
+
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+
+		 wp_mail($to, $subject, $message, $headers, $attachments);
+	}
+	 

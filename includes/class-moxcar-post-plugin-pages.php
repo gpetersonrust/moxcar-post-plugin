@@ -64,7 +64,7 @@ class Moxcar_Post_Plugin_Pages {
      * @since    1.0.0
      */
     public function run() {
-        echo 'running';
+ 
         foreach ( $this->pages as $page ) {
             // if ( $page['parent_slug'] ) {
                 $has_parent =  isset( $page['parent_slug'] ) ? true : false;
