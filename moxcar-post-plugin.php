@@ -116,10 +116,6 @@ function moxcar_send_posts() {
     }
 
     $ids_to_mail = array_diff($posts_to_mail_ids, $posts_already_sent);
-
-
-	print_r($ids_to_mail);
-
     if (!empty($ids_to_mail)) {
         $subscribers = get_option('moxcar_subscribers');
 
