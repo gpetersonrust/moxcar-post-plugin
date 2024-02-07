@@ -7,12 +7,16 @@
     --secondary-text-color: #555555; /* Light Gray */
     --box-shadow-color: rgba(0, 0, 0, 0.05); /* Light box shadow */
     --max-width: 600px;
+    --large-max-width: 1000px;
+    --transition: .25s linear all;
+
   }
 
   section.subscribers-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    margin-top: 2rem;
 }
 
   .subscribers-card{
@@ -170,7 +174,7 @@
 
 
 .add-subscriber-form {
-   max-width: var(--max-width);
+   max-width: var(--large-max-width);
     
 }
 
@@ -200,4 +204,54 @@
     height: 45px;
     white-space: pre;
     padding: 12px;
+}
+
+
+.moxcar-pill{
+  width: 160px;
+  height: 48px;
+  background: #d0d0d0;
+  border-radius: 60px;
+  margin-top: 1rem;
+  cursor:pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  transition: var(--transition);
+
+  .pill-switch {
+  aspect-ratio: 1/1;
+  width: 32px;
+  background: #4b90e2;
+  border-radius: 50%;
+  transform: translateX(4px);
+  transition: var(--transition);
+}
+  span.text {
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #00000063;
+ transition: var(--transition);
+}
+
+&.active{
+  background-color: var( --accent-color);
+
+  span.text{
+    color: var(--main-bg-color);
+  }
+
+  .pill-switch{
+    transform: translateX(124px);
+    background-color: var(--main-bg-color);
+  }
+
+}
 }

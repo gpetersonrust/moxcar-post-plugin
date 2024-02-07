@@ -93,3 +93,49 @@ function subscriber_cards_handler(){
 }
 
 subscriber_cards_handler();
+
+// moxcar-pill
+
+let moxcar_pills = document.querySelectorAll('.moxcar-pill');
+
+moxcar_pills.forEach(moxcar_pill_handler);
+
+function moxcar_pill_handler(moxcar_pill){
+    moxcar_pill.addEventListener('click',  async function(){
+     try {
+        moxcar_pill.classList.toggle('active');
+        //  data-post_url="<?php echo $post_url ?>" data-action="testing_mode" value="0" 
+        let post_url = moxcar_pill.getAttribute('data-post_url');
+        let action = moxcar_pill.getAttribute('data-action');
+        let value = moxcar_pill.getAttribute('data-active');
+        
+        let new_value = value === '0' ? '1' : '0';
+       console.log({
+              post_url,
+              action,
+              value,
+              new_value
+         
+
+       });
+
+    //    reload the page with the action and new_value as query string
+    let url = new URL(post_url);
+    url.searchParams.set('action', action);
+    url.searchParams.set('value', new_value);
+    window
+    .location
+    .replace(url);
+
+
+         
+
+        
+     } catch (error) {
+        console.log(error);
+        return alert('An error occured please try again later');
+        
+     }
+
+    });
+}

@@ -89,14 +89,15 @@ run_moxcar_post_plugin();
 
 
 
-
-
-
+// add access to wp_mail function
+add_action('init', 'moxcar_send_posts');
+function moxcar_send_posts(){
+	
 $posts_to_mail_ids = get_posts(
     array(
         'post_type' => 'post',
         'post_status' => 'publish',
-        'posts_per_page' => 1,
+        'posts_per_page' => 4,
         'fields' => 'ids', // Specify that you only want post IDs
         'date_query' => array(
             array(
@@ -107,6 +108,8 @@ $posts_to_mail_ids = get_posts(
     )
 );
 
+
+// print_r($posts_to_mail_ids);
 
   
 
@@ -129,6 +132,11 @@ $posts_to_mail_ids = get_posts(
 
 	// go through subscribers and ignore the ones that are not active
 	$active_subscribers = array_filter($subscribers, function($subscriber) {
+
+		// if testing mode is on, send to  only active developers
+		if (get_option('moxcar_post_plugin_testing_mode')) {
+			return $subscriber['is_active'] == 1 && $subscriber['is_developer'] == 'developer';
+		}
 		return $subscriber['is_active'] == 1;
 	});
 
@@ -143,12 +151,28 @@ $posts_to_mail_ids = get_posts(
 			$post = get_post($id);
 			 $post_title = $post->post_title;
 			 $post_url =  $post->guid;
-			 
-			 $body .= "<a href='$post_url'>$post_title</a><br>";
+			//  post_content trim to 55 characters with ....
+			$post_content = substr($post->post_content, 0, 55) . '...';
+			$post_author = get_the_author_meta('display_name', $post->post_author);
+			// post date formatted FullMonth d, Y
+			$post_date = date('F j, Y', strtotime($post->post_date));
+            //  buffer for template/post-body.php 
+			ob_start();
+			include MOXCAR_POST_PLUGIN_DIR_PATH . 'template/post-body.php';
+			$body .= ob_get_clean();
 		}
 
 		$headers = array('Content-Type: text/html; charset=UTF-8');
 
-		 wp_mail($to, $subject, $message, $headers, $attachments);
+		// from email
+		$from  = 'dev@moxcar.com'; 
+		// from name 
+		$from_name = 'News Relase From Moxcar';
+		// set from email
+		$headers[] = 'From: ' . $from_name . ' <' . $from . '>';
+		
+
+		wp_mail( $to, $subject, $body, $headers );
 	}
 	 
+}
